@@ -1,20 +1,20 @@
-package com.example.identity.dto.response;
+package com.example.identity.dto.request;
 
-import com.example.identity.entity.Role;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import lombok.experimental.FieldDefaults;
-import org.mapstruct.Mapper;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 @Getter
 @Builder
+@Setter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class UserResponseDTO {
+public class UserUpdateRequest {
 
-    String userName;
+    String password;
 
     String firstName;
 
@@ -22,5 +22,5 @@ public class UserResponseDTO {
 
     LocalDate dob;
 
-    Set<RoleResponse> roles;
+    Set<String> roles;
 }

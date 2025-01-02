@@ -15,21 +15,7 @@ import java.util.Set;
 @Builder
 @Setter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class UserCreationRequestDTO {
+public class LogoutRequest {
 
-    @Size(min = 3, message = "USERNAME_INVALID")
-    String userName;
-
-    @NotNull(message = "PASSWORD_NOT_NULL")
-    @Size(min = 8, message = "PASSWORD_INVALID")
-    String password;
-
-    String firstName;
-
-    String lastName;
-
-    @DobConstraint(min = 18,message = "INVALID_DOB")
-    LocalDate dob;
-
-    Set<String> roles;
+    String token;
 }

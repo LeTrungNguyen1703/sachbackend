@@ -1,33 +1,59 @@
 package com.example.identity.controller;
 
 import com.example.identity.dto.request.UserCreationRequestDTO;
-import com.example.identity.dto.response.ResponseData;
+import com.example.identity.dto.request.UserUpdateRequest;
+import com.example.identity.dto.response.ApiResponseData;
+import com.example.identity.dto.response.PageResponse;
+import com.example.identity.dto.response.UserResponseDTO;
 import com.example.identity.service.UserService;
+import jakarta.validation.Valid;
+import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
+import lombok.experimental.FieldDefaults;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+import java.util.List;
+
 @RestController
-@RequiredArgsConstructor
 @RequestMapping("/users")
+@RequiredArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE, makeFinal = true)
 public class UserController {
 
-    private final UserService userService;
+    UserService userService;
 
     @PostMapping
-    public ResponseData<?> creatUser(@RequestBody UserCreationRequestDTO request) {
+    public ApiResponseData<UserResponseDTO> creatUser(@RequestBody @Valid UserCreationRequestDTO request) {
 
-        return new ResponseData<>(HttpStatus.ACCEPTED.value(), "User created successfully", userService.createUser(request));
+        return new ApiResponseData<>(userService.createUser(request));
     }
 
     @GetMapping
-    public ResponseData<?> getUsers(
-            @RequestParam int pageNo,
-            @RequestParam int pageSize,
+    public ApiResponseData<PageResponse<List<UserResponseDTO>>> getUsers(
+            @RequestParam(defaultValue = "0") int pageNo,
+            @RequestParam(defaultValue = "10") int pageSize,
             @RequestParam(required = false) String sortBy
     ) {
-        return new ResponseData<>(HttpStatus.OK.value(), "Users fetched successfully", userService.getUsers(pageNo, pageSize, sortBy));
+        return new ApiResponseData<>(userService.getUsers(pageNo, pageSize, sortBy));
     }
+
+    @GetMapping("/{id}")
+    public ApiResponseData<UserResponseDTO> getUserById(@PathVariable String id, @RequestHeader("Authorization") String token) {
+        return new ApiResponseData<>(userService.getUserResponseById(id));
+    }
+
+    @GetMapping("/my-info")
+    public ApiResponseData<UserResponseDTO> getMyInfo() {
+        return new ApiResponseData<>(userService.getMyInforByToken());
+    }
+
+    @PutMapping("/{userId}")
+    ApiResponseData<UserResponseDTO> updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
+        return new ApiResponseData<>(userService.updateUser(userId,request));
+    }
+
 }

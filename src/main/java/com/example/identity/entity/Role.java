@@ -4,32 +4,23 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "User")
-@Builder
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class User {
-
+@Entity
+public class Role {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    String id;
+    String name;
+    String description;
 
-    String userName;
-
-    String password;
-
-    String firstName;
-
-    String lastName;
-
-    LocalDate dob;
+    @ManyToMany(fetch = FetchType.EAGER)
+    Set<Permission> permissions;
 
     @ManyToMany( fetch = FetchType.EAGER,cascade = {
             CascadeType.DETACH,
@@ -38,8 +29,9 @@ public class User {
             CascadeType.REFRESH})
     @JoinTable(
             name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "role_id")
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    Set<Role> roles;
+    Set<User> users = new HashSet<>();
+
 }

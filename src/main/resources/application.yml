@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 7000
   servlet:
     context-path: /identity
 
@@ -12,4 +12,11 @@ spring:
     jpa:
         hibernate:
             ddl-auto: update
-        show-sql: true
+
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.security.web: DEBUG
+
+jwt:
+  signerKey: "V28Fq0SVO0jSaA7SZ+dci3SAqe9kvKr2lvLxSin1TadzFR3LSD0GacVHrpowP6bj"
