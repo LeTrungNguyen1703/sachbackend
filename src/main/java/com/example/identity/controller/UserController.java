@@ -1,21 +1,19 @@
 package com.example.identity.controller;
 
-import com.example.identity.dto.request.UserCreationRequestDTO;
-import com.example.identity.dto.request.UserUpdateRequest;
+import com.example.identity.dto.request.User.UserCreationRequestDTO;
+import com.example.identity.dto.request.User.UserUpdateRequest;
 import com.example.identity.dto.response.ApiResponseData;
 import com.example.identity.dto.response.PageResponse;
-import com.example.identity.dto.response.UserResponseDTO;
+import com.example.identity.dto.response.User.UserResponseDTO;
 import com.example.identity.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.text.ParseException;
 import java.util.List;
 
 @RestController

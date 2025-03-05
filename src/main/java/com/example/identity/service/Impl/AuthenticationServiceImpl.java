@@ -7,7 +7,6 @@ import com.example.identity.dto.response.AuthenticationResponse;
 import com.example.identity.dto.response.IntrospectResponse;
 import com.example.identity.entity.InvalidatedToken;
 import com.example.identity.entity.Permission;
-import com.example.identity.entity.Role;
 import com.example.identity.entity.User;
 import com.example.identity.exception.AppException;
 import com.example.identity.exception.AuthenticatedException;
@@ -29,11 +28,9 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.naming.AuthenticationException;
 import java.text.ParseException;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -55,10 +52,10 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
     @Override
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
-        User user = userRepository.findByUserName(request.getUsername())
+        User user = userRepository.findByTenDangNhap(request.getUsername())
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.USER_NOT_FOUND));
 
-        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getPassword());
+        boolean authenticated = passwordEncoder.matches(request.getPassword(), user.getMatKhau());
 
         if (!authenticated) throw new AuthenticatedException(ErrorCode.PASSWORD_NOT_MATCH);
 
@@ -66,7 +63,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
 
         return AuthenticationResponse.builder()
                 .token(token)
-                .authenticated(passwordEncoder.matches(request.getPassword(), user.getPassword()))
+                .authenticated(passwordEncoder.matches(request.getPassword(), user.getMatKhau()))
                 .build();
     }
 
@@ -127,7 +124,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         JWSHeader header = new JWSHeader(JWSAlgorithm.HS512);
 
         JWTClaimsSet jwtClaimsSet = new JWTClaimsSet.Builder()
-                .subject(user.getUserName())
+                .subject(user.getTenDangNhap())
                 .issuer("devteria.com")
                 .issueTime(new Date())
                 .expirationTime(new Date(
@@ -151,7 +148,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     }
 
     private String buildScope(User user) {
-        return user.getRoles().stream()
+        return user.getDanhSachQuyen().stream()
                 .flatMap(role -> Stream.concat(
                         Stream.of("ROLE_" + role.getName()),
                         role.getPermissions().stream().map(Permission::getName)

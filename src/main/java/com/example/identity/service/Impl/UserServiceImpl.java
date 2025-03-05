@@ -1,9 +1,9 @@
 package com.example.identity.service.Impl;
 
-import com.example.identity.dto.request.UserCreationRequestDTO;
-import com.example.identity.dto.request.UserUpdateRequest;
+import com.example.identity.dto.request.User.UserCreationRequestDTO;
+import com.example.identity.dto.request.User.UserUpdateRequest;
 import com.example.identity.dto.response.PageResponse;
-import com.example.identity.dto.response.UserResponseDTO;
+import com.example.identity.dto.response.User.UserResponseDTO;
 import com.example.identity.entity.User;
 import com.example.identity.exception.ErrorCode;
 import com.example.identity.exception.ResourceAlreadyExitsException;
@@ -27,7 +27,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -44,19 +44,18 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserResponseDTO createUser(UserCreationRequestDTO request) {
-        if (userRepository.existsByUserName(request.getUserName())) {
+        if (userRepository.existsByTenDangNhap(request.getTenDangNhap())) {
             throw new ResourceAlreadyExitsException(ErrorCode.USER_ALREADY_EXISTS);
         }
         User user = userMapper.toUser(request);
-        user.setPassword(passwordEncoder.encode(request.getPassword()));
+        user.setMatKhau(passwordEncoder.encode(request.getMatKhau()));
 
-        var roles = roleRepository.findAllById(request.getRoles());
+        var roles = roleRepository.findAllById(request.getDanhSachQuyen());
 
 
-        user.setRoles(new HashSet<>(roles));
-
+        user.setDanhSachQuyen(new ArrayList<>(roles));
         user = userRepository.save(user);
-        log.info("Creating user: {}", user.getId());
+        log.info("Creating user: {}", user.getMaNguoiDung());
 
         return userMapper.toUserResponseDTO(user);
     }
@@ -93,7 +92,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    @PostAuthorize("returnObject.userName == authentication.name")
+    @PostAuthorize("returnObject.tenDangNhap == authentication.name")
     public UserResponseDTO getUserResponseById(String id) {
         User user = getUserById(id);
         return userMapper.toUserResponseDTO(user);
@@ -114,13 +113,13 @@ public class UserServiceImpl implements UserService {
 
        userMapper.updateUser(request, user);
 
-       if (request.getPassword() != null) {
-           user.setPassword(passwordEncoder.encode(request.getPassword()));
+       if (request.getMatKhau() != null) {
+           user.setMatKhau(passwordEncoder.encode(request.getMatKhau()));
        }
 
-       var roles = roleRepository.findAllById(request.getRoles());
+       var roles = roleRepository.findAllById(request.getDanhSachQuyen());
 
-       user.setRoles(new HashSet<>(roles));
+       user.setDanhSachQuyen(new ArrayList<>(roles));
 
        user = userRepository.save(user);
 
@@ -134,7 +133,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private User getUserByUsername(String username) {
-        return userRepository.findByUserName(username)
+        return userRepository.findByTenDangNhap(username)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.USER_NOT_FOUND));
     }
 
