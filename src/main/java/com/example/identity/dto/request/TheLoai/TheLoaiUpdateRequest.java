@@ -15,5 +15,4 @@ import java.util.Set;
 public class TheLoaiUpdateRequest {
 
     private String tenTheLoai;
-    private List<String> danhSachQuyenSach;
 }

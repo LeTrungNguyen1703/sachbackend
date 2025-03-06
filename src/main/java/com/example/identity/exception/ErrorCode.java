@@ -24,6 +24,9 @@ public enum ErrorCode {
     PARSE_TOKEN_EXCEPTION(1007, "PARSE_TOKEN_EXCEPTION", HttpStatus.BAD_REQUEST),
     UNAUTHORIZED(1008, "You do not have permission", HttpStatus.FORBIDDEN),
     UNAUTHENTICATED(1021, "You do not have permission", HttpStatus.FORBIDDEN),
+    THE_LOAI_NOT_FOUND(1030, "Khong co the loai nay", HttpStatus.BAD_REQUEST),
+    THE_LOAI_ALREADY_EXITS(1031, "Khong the tao the loai da ton tai", HttpStatus.BAD_REQUEST),
+    ROLE_NOT_FOUND(1031, "ROLE KHONG TON TAI", HttpStatus.BAD_REQUEST),
 
     AUTHENTICATION_FAILED(1006, "Authentication failed", HttpStatus.UNAUTHORIZED),
     INVALID_DOB(1021, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),

@@ -31,18 +31,18 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(exception, HttpStatus.BAD_REQUEST);
     }
-//
-//    @ExceptionHandler({RuntimeException.class})
-//    public ResponseEntity<ExceptionResponse> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
-//        var runtimeException = ExceptionResponse.builder()
-//                .code(ErrorCode.RUNTIME_EXCEPTION.getCode())
-//                .message(e.getMessage())
-//                .path(request.getRequestURI())
-//                .timestamp(new Date())
-//                .build();
-//
-//        return new ResponseEntity<>(runtimeException, HttpStatus.BAD_REQUEST);
-//    }
+
+    @ExceptionHandler({RuntimeException.class,IllegalArgumentException.class})
+    public ResponseEntity<ExceptionResponse> handleRuntimeException(RuntimeException e, HttpServletRequest request) {
+        var runtimeException = ExceptionResponse.builder()
+                .code(ErrorCode.RUNTIME_EXCEPTION.getCode())
+                .message(e.getMessage())
+                .path(request.getRequestURI())
+                .timestamp(new Date())
+                .build();
+
+        return new ResponseEntity<>(runtimeException, HttpStatus.BAD_REQUEST);
+    }
 
 
     @ExceptionHandler({ResourceAlreadyExitsException.class, ResourceNotFoundException.class, AuthenticatedException.class})

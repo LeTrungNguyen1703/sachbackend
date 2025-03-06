@@ -5,6 +5,9 @@ import com.example.identity.dto.request.RoleRequest;
 import com.example.identity.dto.response.PermissionResponse;
 import com.example.identity.dto.response.RoleResponse;
 import com.example.identity.entity.Permission;
+import com.example.identity.entity.Role;
+import com.example.identity.exception.ErrorCode;
+import com.example.identity.exception.ResourceNotFoundException;
 import com.example.identity.mapper.PermissionMapper;
 import com.example.identity.mapper.RoleMapper;
 import com.example.identity.repository.PermissionRepository;
@@ -16,6 +19,7 @@ import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 
@@ -53,5 +57,15 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public void delete(String role) {
         roleRepository.deleteById(role);
+    }
+
+    @Override
+    public void update(RoleRequest request, String id) {
+        Role role = roleRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.ROLE_NOT_FOUND));
+
+        roleMapper.updateRole(request,role);
+
+        roleRepository.save(role);
     }
 }
