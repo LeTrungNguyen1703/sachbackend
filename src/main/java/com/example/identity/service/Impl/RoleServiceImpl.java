@@ -22,6 +22,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 @RequiredArgsConstructor
@@ -66,17 +67,13 @@ public class RoleServiceImpl implements RoleService {
 
         roleMapper.updateRole(request,role);
 
-        var permissions = permissionRepository.findAllById(request.getPermissions());
+        List<Permission> permissions = permissionRepository.findAllById(request.getPermissions());
 
-        role.getPermissions().addAll(permissions);
+        role.setPermissions(new HashSet<>(permissions));
 
         roleRepository.save(role);
 
         return roleMapper.toRoleResponse(role);
     }
 
-    private void checkPermissions(List<String> permissions) {
-        List<Permission> permissionList = permissionRepository.findAllById(permissions);
-
-    }
 }

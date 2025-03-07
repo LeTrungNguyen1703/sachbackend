@@ -33,7 +33,7 @@ public class TheLoaiServiceImpl implements TheLoaiService {
     @Override
     public TheLoaiResponse createTheLoai(TheLoaiRequest request) {
         TheLoai theLoai = theLoaiMapper.toTheLoai(request);
-        if (theLoaiRepository.findByTenTheLoai(request.getTenTheLoai()) != null){
+        if (theLoaiRepository.findByTenTheLoai(request.getTenTheLoai()).isPresent()){
             throw (new ResourceAlreadyExitsException(ErrorCode.THE_LOAI_ALREADY_EXITS));
         }
 
@@ -76,6 +76,7 @@ public class TheLoaiServiceImpl implements TheLoaiService {
 
         theLoaiMapper.updateTheLoai(request,theLoai);
 
+        theLoaiRepository.save(theLoai);
         return theLoaiMapper.toTheLoaiResponse(theLoai);
     }
 
