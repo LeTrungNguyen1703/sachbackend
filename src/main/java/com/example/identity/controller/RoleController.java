@@ -33,6 +33,15 @@ public class RoleController {
         return new ApiResponseData<>(roleService.getAll());
     }
 
+    @PutMapping
+    ApiResponseData<RoleResponse> updateRole(
+            @RequestBody RoleRequest request,
+            String id
+            ) {
+        return new ApiResponseData<>(roleService.update(request,id));
+
+    }
+
     @DeleteMapping
     ApiResponseData<?> delete(@RequestParam String id) {
         roleService.delete(id);

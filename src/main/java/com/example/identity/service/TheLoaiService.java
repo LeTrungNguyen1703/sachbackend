@@ -11,6 +11,6 @@ public interface TheLoaiService {
     List<TheLoaiResponse> getTheLoais();
     TheLoaiResponse getTheLoaiById(int id);
     TheLoaiResponse getTheLoaiByTenTheLoai(String tenTheLoai);
-    TheLoaiResponse updateTheLoai(String Id, TheLoaiUpdateRequest request);
+    TheLoaiResponse updateTheLoai(int Id, TheLoaiUpdateRequest request);
     void delete(int id);
 }

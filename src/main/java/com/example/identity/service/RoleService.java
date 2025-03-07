@@ -13,6 +13,6 @@ public interface RoleService {
 
     void delete(String role);
 
-    void update(RoleRequest request, String id);
+    RoleResponse update(RoleRequest request, String id);
 
 }

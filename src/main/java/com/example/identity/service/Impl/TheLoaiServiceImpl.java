@@ -70,8 +70,13 @@ public class TheLoaiServiceImpl implements TheLoaiService {
     }
 
     @Override
-    public TheLoaiResponse updateTheLoai(String Id, TheLoaiUpdateRequest request) {
-        return null;
+    public TheLoaiResponse updateTheLoai(int Id, TheLoaiUpdateRequest request) {
+        TheLoai theLoai = theLoaiRepository.findById(Id)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.THE_LOAI_NOT_FOUND));
+
+        theLoaiMapper.updateTheLoai(request,theLoai);
+
+        return theLoaiMapper.toTheLoaiResponse(theLoai);
     }
 
     @Override

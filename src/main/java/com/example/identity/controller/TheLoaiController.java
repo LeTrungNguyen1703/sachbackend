@@ -1,6 +1,7 @@
 package com.example.identity.controller;
 
 import com.example.identity.dto.request.TheLoai.TheLoaiRequest;
+import com.example.identity.dto.request.TheLoai.TheLoaiUpdateRequest;
 import com.example.identity.dto.request.User.UserCreationRequestDTO;
 import com.example.identity.dto.response.ApiResponseData;
 import com.example.identity.dto.response.TheLoai.TheLoaiResponse;
@@ -42,12 +43,16 @@ public class TheLoaiController {
 
         if (id != null) {
             return new ApiResponseData<>(theLoaiService.getTheLoaiById(id));
-        }
-        else if (tenTheLoai != null) {
+        } else if (tenTheLoai != null) {
             return new ApiResponseData<>(theLoaiService.getTheLoaiByTenTheLoai(tenTheLoai));
         }
 
         throw (new IllegalArgumentException(ErrorCode.MISSING_PARAMETER.getMessage()));
+    }
+
+    @PutMapping("/{id}")
+    public void updateTheLoai(@RequestBody TheLoaiUpdateRequest request, @PathVariable int id) {
+        theLoaiService.updateTheLoai(id, request);
     }
 
     @DeleteMapping("/{id}")

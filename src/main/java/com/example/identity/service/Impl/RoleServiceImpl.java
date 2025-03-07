@@ -60,12 +60,23 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public void update(RoleRequest request, String id) {
+    public RoleResponse update(RoleRequest request, String id) {
         Role role = roleRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.ROLE_NOT_FOUND));
 
         roleMapper.updateRole(request,role);
 
+        var permissions = permissionRepository.findAllById(request.getPermissions());
+
+        role.getPermissions().addAll(permissions);
+
         roleRepository.save(role);
+
+        return roleMapper.toRoleResponse(role);
+    }
+
+    private void checkPermissions(List<String> permissions) {
+        List<Permission> permissionList = permissionRepository.findAllById(permissions);
+
     }
 }
