@@ -1,6 +1,8 @@
 package com.example.identity.dto.response.Sach;
 
 import com.example.identity.dto.request.HInhAnh.HinhAnhRequest;
+import com.example.identity.dto.response.HinhAnh.HinhAnhResponse;
+import com.example.identity.dto.response.TheLoai.TheLoaiResponse;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -30,7 +32,7 @@ public class SachResponse {
 
     private Double trungBinhXepHang;
 
-    List<String> danhSachTheLoai;
+    List<TheLoaiResponse> danhSachTheLoai;
 
-    List<HinhAnhRequest> danhSachHinhAnh;
+//    List<HinhAnhResponse> danhSachHinhAnh; // chua xong
 }

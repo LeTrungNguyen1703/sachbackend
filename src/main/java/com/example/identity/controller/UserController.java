@@ -40,7 +40,7 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponseData<UserResponseDTO> getUserById(@PathVariable String id, @RequestHeader("Authorization") String token) {
+    public ApiResponseData<UserResponseDTO> getUserById(@PathVariable Integer id, @RequestHeader("Authorization") String token) {
         return new ApiResponseData<>(userService.getUserResponseById(id));
     }
 
@@ -50,7 +50,7 @@ public class UserController {
     }
 
     @PutMapping("/{userId}")
-    ApiResponseData<UserResponseDTO> updateUser(@PathVariable String userId, @RequestBody UserUpdateRequest request) {
+    ApiResponseData<UserResponseDTO> updateUser(@PathVariable Integer userId, @RequestBody UserUpdateRequest request) {
         return new ApiResponseData<>(userService.updateUser(userId,request));
     }
 

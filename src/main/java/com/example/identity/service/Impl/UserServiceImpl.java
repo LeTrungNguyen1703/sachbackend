@@ -93,7 +93,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @PostAuthorize("returnObject.tenDangNhap == authentication.name")
-    public UserResponseDTO getUserResponseById(String id) {
+    public UserResponseDTO getUserResponseById(Integer id) {
         User user = getUserById(id);
         return userMapper.toUserResponseDTO(user);
     }
@@ -108,7 +108,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO updateUser(String userId, UserUpdateRequest request) {
+    public UserResponseDTO updateUser(Integer userId, UserUpdateRequest request) {
         User user = this.getUserById(userId);
 
        userMapper.updateUser(request, user);
@@ -127,7 +127,7 @@ public class UserServiceImpl implements UserService {
     }
 
 
-    private User getUserById(String id) {
+    private User getUserById(Integer id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.USER_NOT_FOUND));
     }

@@ -10,7 +10,6 @@ import java.util.List;
 
 @Getter
 @Builder
-@Setter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 public class TheLoaiResponse {
 
