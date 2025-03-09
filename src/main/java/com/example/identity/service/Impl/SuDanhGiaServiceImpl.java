@@ -24,7 +24,9 @@ import com.example.identity.service.TheLoaiService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.orm.hibernate5.SpringSessionContext;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -44,25 +46,27 @@ public class SuDanhGiaServiceImpl implements SuDanhGiaService {
 
     @Override
     public SuDanhGiaResponse createSuDanhGia(SuDanhGiaRequest request) {
-
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         SuDanhGia suDanhGia = suDanhGiaMapper.toSuDanhGia(request);
 
+        User user = serviceHelper.getUserByUserName(userName);
         Sach sach = serviceHelper.getSachById(request.getSach());
-        User user = serviceHelper.getUserById(request.getUser());
 
         suDanhGia.setSach(sach);
         suDanhGia.setUser(user);
 
         suDanhGiaRepository.save(suDanhGia);
 
-        SuDanhGiaResponse suDanhGiaResponse = suDanhGiaMapper.toSachDanhGiaResponse(suDanhGia);
-
         return suDanhGiaMapper.toSachDanhGiaResponse(suDanhGia);
     }
 
     @Override
     public List<SuDanhGiaResponse> getSuDanhGias() {
-        return List.of();
+        var listDanhGia = suDanhGiaRepository.findAll();
+        return listDanhGia
+                .stream()
+                .map(suDanhGiaMapper::toSachDanhGiaResponse)
+                .toList();
     }
 
     @Override

@@ -61,8 +61,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-//    @PreAuthorize("hasRole('ADMIN')")
-    @PreAuthorize("hasAuthority('CREATE_DATA')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public PageResponse<List<UserResponseDTO>> getUsers(int pageNo, int pageSize, String sortBy) {
         //Authorization
         var authentication = SecurityContextHolder.getContext().getAuthentication();

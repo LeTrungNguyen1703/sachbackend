@@ -27,5 +27,9 @@ public class ServiceHelper {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.USER_NOT_FOUND));
     }
+    public User getUserByUserName(String userName) {
+        return userRepository.findByTenDangNhap(userName)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.USER_NOT_FOUND));
+    }
 
 }
