@@ -25,8 +25,6 @@ public class SuDanhGiaRequest {
     private String nhanXet;
 
     private Integer sach;
-
-    private Integer user;
     
 
 }
