@@ -4,6 +4,7 @@ import com.example.identity.dto.request.SuDanhGia.SuDanhGiaRequest;
 import com.example.identity.dto.request.TheLoai.TheLoaiRequest;
 import com.example.identity.dto.request.TheLoai.TheLoaiUpdateRequest;
 import com.example.identity.dto.response.ApiResponseData;
+import com.example.identity.dto.response.SuDanhGia.SuDanhGiaProjection;
 import com.example.identity.dto.response.SuDanhGia.SuDanhGiaResponse;
 import com.example.identity.dto.response.TheLoai.TheLoaiResponse;
 import com.example.identity.exception.ErrorCode;
@@ -57,4 +58,10 @@ public class SuDanhGiaController {
         suDanhGiaService.delete(id);
 
     }
+
+    @GetMapping("/avgRating")
+    public void getAVGRating() {
+        suDanhGiaService.avgDanhGia();
+    }
+
 }

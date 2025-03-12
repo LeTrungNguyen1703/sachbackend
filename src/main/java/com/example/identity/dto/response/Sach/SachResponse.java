@@ -3,6 +3,7 @@ package com.example.identity.dto.response.Sach;
 import com.example.identity.dto.request.HInhAnh.HinhAnhRequest;
 import com.example.identity.dto.response.HinhAnh.HinhAnhResponse;
 import com.example.identity.dto.response.TheLoai.TheLoaiResponse;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -14,6 +15,7 @@ import java.util.List;
 @Builder
 @Setter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class SachResponse {
 
     private String tenSach;

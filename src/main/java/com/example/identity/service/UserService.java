@@ -13,5 +13,5 @@ public interface UserService {
     PageResponse<List<UserResponseDTO>> getUsers(int pageNo, int pageSize, String sortBy);
     UserResponseDTO getUserResponseById(Integer id);
     UserResponseDTO getMyInforByToken();
-    UserResponseDTO updateUser(Integer userId, UserUpdateRequest request);
+    UserResponseDTO updateUser( UserUpdateRequest request);
 }

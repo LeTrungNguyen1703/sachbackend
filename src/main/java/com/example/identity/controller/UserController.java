@@ -49,9 +49,9 @@ public class UserController {
         return new ApiResponseData<>(userService.getMyInforByToken());
     }
 
-    @PutMapping("/{userId}")
-    ApiResponseData<UserResponseDTO> updateUser(@PathVariable Integer userId, @RequestBody UserUpdateRequest request) {
-        return new ApiResponseData<>(userService.updateUser(userId,request));
+    @PutMapping
+    ApiResponseData<UserResponseDTO> updateUser(@RequestBody UserUpdateRequest request) {
+        return new ApiResponseData<>(userService.updateUser(request));
     }
 
 }

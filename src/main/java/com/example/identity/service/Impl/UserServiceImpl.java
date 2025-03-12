@@ -107,8 +107,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserResponseDTO updateUser(Integer userId, UserUpdateRequest request) {
-        User user = this.getUserById(userId);
+    public UserResponseDTO updateUser(UserUpdateRequest request) {
+
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user = this.getUserByUsername(userName);
 
        userMapper.updateUser(request, user);
 

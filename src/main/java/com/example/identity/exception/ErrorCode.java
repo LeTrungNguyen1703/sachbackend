@@ -28,7 +28,7 @@ public enum ErrorCode {
     THE_LOAI_ALREADY_EXITS(1031, "Khong the tao the loai da ton tai", HttpStatus.BAD_REQUEST),
     ROLE_NOT_FOUND(1032, "ROLE KHONG TON TAI", HttpStatus.BAD_REQUEST),
     SACH_NOT_FOUND(1033, "SACH KHONG TON TAI", HttpStatus.BAD_REQUEST),
-
+    NOT_FOUND(1034, "KHONG TON TAI", HttpStatus.BAD_REQUEST),
     AUTHENTICATION_FAILED(1006, "Authentication failed", HttpStatus.UNAUTHORIZED),
     INVALID_DOB(1021, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
     MISSING_PARAMETER(1020,"Need Parameter for this request", HttpStatus.BAD_REQUEST);
