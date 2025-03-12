@@ -30,11 +30,9 @@ public class SachRequest {
 
     private int soLuong;
 
-    private Double trungBinhXepHang;
-
     List<String> danhSachTheLoai;
 
-    List<HinhAnhRequest> danhSachHinhAnh;
+//    List<Integer> danhSachHinhAnh;
 
 
 }

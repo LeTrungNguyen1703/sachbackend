@@ -80,17 +80,7 @@ public class SuDanhGiaServiceImpl implements SuDanhGiaService {
         suDanhGiaRepository.deleteById(id);
     }
 
-    @Override
-    public void avgDanhGia() {
-        var avgRating= suDanhGiaRepository.getAvgRating();
 
-        avgRating.forEach(suDanhGia -> {
-            var sach = serviceHelper.getSachById(suDanhGia.getMaSach());
-            sach.setTrungBinhXepHang(suDanhGia.getAvgDiemXepHang());
-
-            sachRepository.save(sach);
-        });
-    }
 
     private SuDanhGia localGetSuDanhGiaById(long id) {
         return suDanhGiaRepository.findById(id)

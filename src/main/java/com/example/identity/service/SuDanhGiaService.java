@@ -13,6 +13,5 @@ public interface SuDanhGiaService {
     SuDanhGiaResponse getSuDanhGiaById(long id);
     void updateSuDanhGia(long id, SuDanhGiaRequest request);
     void delete(long id);
-    void avgDanhGia();
 
 }

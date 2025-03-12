@@ -36,5 +36,5 @@ public class SachResponse {
 
     List<TheLoaiResponse> danhSachTheLoai;
 
-//    List<HinhAnhResponse> danhSachHinhAnh; // chua xong
+//    List<HinhAnhResponse> danhSachHinhAnh;
 }

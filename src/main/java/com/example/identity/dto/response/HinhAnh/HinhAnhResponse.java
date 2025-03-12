@@ -13,11 +13,7 @@ import lombok.experimental.FieldDefaults;
 
 public class HinhAnhResponse {
 
-    private Float diemXepHang;
+    private String tenHinhAnh;
 
-    private String nhanXet;
-
-    private String sach;
-
-    private String user;
+    private boolean laIcon;
 }

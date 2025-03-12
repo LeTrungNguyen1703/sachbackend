@@ -59,9 +59,4 @@ public class SuDanhGiaController {
 
     }
 
-    @GetMapping("/avgRating")
-    public void getAVGRating() {
-        suDanhGiaService.avgDanhGia();
-    }
-
 }

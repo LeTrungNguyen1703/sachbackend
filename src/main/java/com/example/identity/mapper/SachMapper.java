@@ -11,16 +11,14 @@ import org.mapstruct.*;
 @Mapper(componentModel = "spring")
 public interface SachMapper {
 
-    @Mapping(target = "sach", ignore = true)
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "danhSachTheLoai", ignore = true)
+    @Mapping(target = "danhSachHinhAnh", ignore = true)
     Sach toSach(SachRequest request);
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
-    @Mapping(target = "sach", ignore = true)
-    @Mapping(target = "user", ignore = true)
+    @Mapping(target = "danhSachTheLoai", ignore = true)
+    @Mapping(target = "danhSachHinhAnh", ignore = true)
     void updateSach(SachRequest request, @MappingTarget Sach object);
 
-//    @Mapping(target = "sach", ignore = true)
-//    @Mapping(target = "user", ignore = true)
     SachResponse toSachResponse(Sach response);
 }
