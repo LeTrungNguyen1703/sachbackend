@@ -87,6 +87,7 @@ public class SuDanhGiaServiceImpl implements SuDanhGiaService {
         avgRating.forEach(suDanhGia -> {
             var sach = serviceHelper.getSachById(suDanhGia.getMaSach());
             sach.setTrungBinhXepHang(suDanhGia.getAvgDiemXepHang());
+
             sachRepository.save(sach);
         });
     }
