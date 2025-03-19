@@ -1,7 +1,5 @@
 package com.example.identity.dto.request.HInhAnh;
 
-import com.example.identity.entity.Sach;
-import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -11,7 +9,7 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @Setter
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
-public class HinhAnhRequest {
+public class HinhAnhUpdateRequest {
     private String tenHinhAnh;
 
     private boolean laIcon;
@@ -19,7 +17,5 @@ public class HinhAnhRequest {
     private String duongDan;
 
     private String duLieuAnh;
-
-    private Integer sach;
 
 }

@@ -7,6 +7,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 @Getter
+@Setter
 @Builder
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -14,6 +15,8 @@ import lombok.experimental.FieldDefaults;
 public class HinhAnhResponse {
 
     private String tenHinhAnh;
+
+    private byte[] duLieuAnh;
 
     private boolean laIcon;
 }
