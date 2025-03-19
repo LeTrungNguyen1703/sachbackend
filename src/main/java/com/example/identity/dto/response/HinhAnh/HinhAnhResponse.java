@@ -16,7 +16,9 @@ public class HinhAnhResponse {
 
     private String tenHinhAnh;
 
-    private byte[] duLieuAnh;
+    private String duongDan;
+
+    private String duLieuAnh;
 
     private boolean laIcon;
 }

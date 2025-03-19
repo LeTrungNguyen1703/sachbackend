@@ -15,6 +15,10 @@ public class ApiResponseData<T> {
     private String message = ErrorCode.SUCCESS.getMessage();
     private T result;
 
+    public ApiResponseData() {
+
+    }
+
     public ApiResponseData(T data) {
         this.result = data;
     }

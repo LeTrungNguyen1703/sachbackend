@@ -9,6 +9,7 @@ import com.example.identity.dto.response.TheLoai.TheLoaiResponse;
 import com.example.identity.entity.HinhAnh;
 import com.example.identity.entity.TheLoai;
 import org.mapstruct.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Mapper(componentModel = "spring")
 public interface HinhAnhMapper {
@@ -20,8 +21,7 @@ public interface HinhAnhMapper {
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "sach", ignore = true)
     @Mapping(target = "duLieuAnh", ignore = true)
-    void updateHinhAnh(HinhAnhUpdateRequest request, @MappingTarget HinhAnh hinhAnh);
+    void updateHinhAnh(Integer idSach,MultipartFile file, @MappingTarget HinhAnh hinhAnh);
 
-    @Mapping(target = "duLieuAnh", ignore = true)
     HinhAnhResponse toHinhAnhResponse(HinhAnh response);
 }

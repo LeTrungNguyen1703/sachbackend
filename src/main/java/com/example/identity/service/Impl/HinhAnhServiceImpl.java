@@ -1,6 +1,5 @@
 package com.example.identity.service.Impl;
 
-import com.example.identity.dto.request.HInhAnh.HinhAnhUpdateRequest;
 import com.example.identity.dto.response.HinhAnh.HinhAnhResponse;
 import com.example.identity.entity.HinhAnh;
 import com.example.identity.entity.Sach;
@@ -50,27 +49,38 @@ public class HinhAnhServiceImpl implements HinhAnhService {
     public List<HinhAnhResponse> getHinhAnhs() {
         List<HinhAnh> hinhAnhs = hinhAnhRepository.findAll();
 
-        return hinhAnhs.stream().map(hinhAnhMapper::toHinhAnhResponse).collect(Collectors.toList());
+        return hinhAnhs.stream()
+                .map(hinhAnhMapper::toHinhAnhResponse)
+                .collect(Collectors.toList());
     }
 
     @Override
     public HinhAnhResponse getHinhAnhById(Integer id) {
         HinhAnh hinhAnh = serviceHelper.getHinhAnhById(id);
-        byte[] imageDecode = Base64.getDecoder().decode(hinhAnh.getDuLieuAnh());
 
-        HinhAnhResponse hinhAnhResponse = hinhAnhMapper.toHinhAnhResponse(hinhAnh);
-        hinhAnhResponse.setDuLieuAnh(imageDecode);
-
-        return hinhAnhResponse;
+        return hinhAnhMapper.toHinhAnhResponse(hinhAnh);
     }
 
     @Override
-    public void updateHinhAnh(Integer id, HinhAnhUpdateRequest request) {
+    public void updateHinhAnh(Integer id, Integer idSach, MultipartFile file) throws IOException {
+        HinhAnh hinhAnh = serviceHelper.getHinhAnhById(id);
+        if(idSach != null) {
+            Sach sach = serviceHelper.getSachById(idSach);
+            hinhAnh.setSach(sach);
+        }
+
+        String enCode = Base64.getEncoder().encodeToString(file.getBytes());
+
+        hinhAnh.setTenHinhAnh(file.getOriginalFilename());
+        hinhAnh.setDuongDan(file.getContentType());
+        hinhAnh.setDuLieuAnh(enCode);
+
+        hinhAnhRepository.save(hinhAnh);
 
     }
 
     @Override
     public void delete(Integer id) {
-
+        hinhAnhRepository.deleteById(id);
     }
 }

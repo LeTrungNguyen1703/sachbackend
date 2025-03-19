@@ -1,15 +1,9 @@
 package com.example.identity.controller;
 
-import com.example.identity.dto.request.HInhAnh.HinhAnhRequest;
-import com.example.identity.dto.request.HInhAnh.HinhAnhUpdateRequest;
-import com.example.identity.dto.request.SuDanhGia.SuDanhGiaRequest;
 import com.example.identity.dto.response.ApiResponseData;
 import com.example.identity.dto.response.HinhAnh.HinhAnhResponse;
-import com.example.identity.dto.response.SuDanhGia.SuDanhGiaResponse;
 import com.example.identity.exception.ErrorCode;
 import com.example.identity.service.HinhAnhService;
-import com.example.identity.service.SuDanhGiaService;
-import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -36,9 +30,9 @@ public class HinhAnhController {
         return new ApiResponseData<>(hinhAnhService.getHinhAnhs());
     }
 
-    @GetMapping("/get")
+    @GetMapping("/get/{id}")
     public ApiResponseData<HinhAnhResponse> getHinhAnhById(
-            @RequestParam(required = false) Integer id
+            @PathVariable Integer id
     ) {
         if (id != null) {
             return new ApiResponseData<>(hinhAnhService.getHinhAnhById(id));
@@ -47,13 +41,15 @@ public class HinhAnhController {
     }
 
     @PutMapping("/{id}")
-    public void updateHinhAnh(@RequestBody HinhAnhUpdateRequest request, @PathVariable int id) {
-        hinhAnhService.updateHinhAnh(id, request);
+    public ApiResponseData<String> updateHinhAnh(@PathVariable Integer id,@RequestParam(required = false) Integer idSach,@RequestParam("file") MultipartFile file) throws IOException {
+        hinhAnhService.updateHinhAnh(id,idSach, file);
+        return new ApiResponseData<>();
     }
 
     @DeleteMapping("/{id}")
-    public void deleteHinhAnhById(@PathVariable int id) {
+    public ApiResponseData<String> deleteHinhAnhById(@PathVariable int id) {
         hinhAnhService.delete(id);
+        return new ApiResponseData<>();
     }
 
 }
