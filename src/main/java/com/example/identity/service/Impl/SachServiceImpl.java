@@ -4,8 +4,11 @@ import com.example.identity.dto.request.Sach.SachRequest;
 import com.example.identity.dto.response.PageResponse;
 import com.example.identity.dto.response.Sach.SachResponse;
 import com.example.identity.entity.Sach;
+import com.example.identity.exception.ErrorCode;
+import com.example.identity.exception.ResourceNotFoundException;
 import com.example.identity.mapper.SachMapper;
 import com.example.identity.methodsPhoBien.ServiceHelper;
+import com.example.identity.repository.HinhAnhRepository;
 import com.example.identity.repository.SachRepository;
 import com.example.identity.repository.SuDanhGiaRepository;
 import com.example.identity.repository.TheLoaiRepository;
@@ -29,6 +32,7 @@ public class SachServiceImpl implements SachService {
     SachRepository sachRepository;
     SachMapper sachMapper;
     TheLoaiRepository theLoaiRepository;
+    HinhAnhRepository hinhAnhRepository;
     SuDanhGiaRepository suDanhGiaRepository;
     ServiceHelper serviceHelper;
 
@@ -37,6 +41,11 @@ public class SachServiceImpl implements SachService {
         Sach sach = sachMapper.toSach(request);
 
         var danhSachTheLoai = theLoaiRepository.findAllByTenTheLoaiIn((request.getDanhSachTheLoai()));
+
+        if (!request.getDanhSachHinhAnh().isEmpty()) {
+            var danhSachAnh = hinhAnhRepository.findAllById(request.getDanhSachHinhAnh());
+            sach.setDanhSachHinhAnh(danhSachAnh);
+        }
 
         sach.setDanhSachTheLoai(danhSachTheLoai);
 
@@ -63,22 +72,48 @@ public class SachServiceImpl implements SachService {
     }
 
     @Override
-    public SachResponse getSachById(String id) {
-        return null;
+    public SachResponse getSachByName(String name) {
+        Sach sach = serviceHelper.getSachByTenSach(name);
+
+        return sachMapper.toSachResponse(sach);
     }
 
     @Override
+    public SachResponse getSachById(Integer name) {
+        Sach sach = serviceHelper.getSachById(name);
+        SachResponse sachResponse = sachMapper.toSachResponse(sach);
+        return  sachMapper.toSachResponse(sach);
+    }
+
+
+    @Override
     public void updateSach(int id, SachRequest request) {
+        Sach sach = serviceHelper.getSachById(id);
+
+        sachMapper.updateSach(request, sach);
+
+        if (!request.getDanhSachTheLoai().isEmpty()) {
+            var danhSachTheLoai = theLoaiRepository.findAllByTenTheLoaiIn(request.getDanhSachTheLoai());
+            sach.setDanhSachTheLoai(danhSachTheLoai);
+        }
+
+        if (!request.getDanhSachHinhAnh().isEmpty()) {
+            var danhSachHinhAnh = hinhAnhRepository.findAllById(request.getDanhSachHinhAnh());
+            sach.setDanhSachHinhAnh(danhSachHinhAnh);
+        }
+
+        sachRepository.save(sach);
+
     }
 
     @Override
     public void deleteSach(Integer Id) {
-
+        sachRepository.deleteById(Id);
     }
 
     @Override
     public void avgDanhGia() {
-        var avgRating= suDanhGiaRepository.getAvgRating();
+        var avgRating = suDanhGiaRepository.getAvgRating();
         List<Sach> sachToUpdate = new ArrayList<>();
         avgRating.forEach(suDanhGia -> {
             var sach = serviceHelper.getSachById(suDanhGia.getMaSach());

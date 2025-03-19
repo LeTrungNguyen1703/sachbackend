@@ -2,6 +2,7 @@ package com.example.identity.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -47,20 +48,28 @@ public class Sach {
             joinColumns = @JoinColumn(name = "ma_sach"),
             inverseJoinColumns = @JoinColumn(name = "ma_the_loai")
     )
+    @ToString.Exclude
     List<TheLoai> danhSachTheLoai;
 
     @OneToMany(mappedBy = "sach", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+
     List<HinhAnh> danhSachHinhAnh;
 
     @OneToMany(mappedBy = "sach", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ToString.Exclude
+
     List<SuDanhGia> danhSachSuDanhGia;
 
     @OneToMany(mappedBy = "sach", fetch = FetchType.LAZY, cascade = {
             CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH
     })
+    @ToString.Exclude
+
     List<ChiTietDonHang> danhSachChiTietDonHang;
 
+    @ToString.Exclude
     @OneToMany( mappedBy = "sach", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     List<SachYeuThich> danhSachSachYeuThich;
 }

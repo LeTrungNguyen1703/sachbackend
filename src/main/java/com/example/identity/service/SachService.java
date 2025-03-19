@@ -9,7 +9,8 @@ import java.util.List;
 public interface SachService {
     SachResponse createSach(SachRequest request);
     PageResponse<List<SachResponse>> getSachs(int pageNo, int pageSize, String sortBy);
-    SachResponse getSachById(String id);
+    SachResponse getSachByName(String name);
+    SachResponse getSachById(Integer name);
     void updateSach(int id,SachRequest request);
     void deleteSach(Integer Id);
     void avgDanhGia();

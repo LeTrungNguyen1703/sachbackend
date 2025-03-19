@@ -37,8 +37,13 @@ public class SachController {
     }
 
     @GetMapping("/{id}")
-    public ApiResponseData<SachResponse> getSachById(@PathVariable String id) {
+    public ApiResponseData<SachResponse> getSachById(@PathVariable Integer id) {
         return new ApiResponseData<>(sachService.getSachById(id));
+    }
+
+    @GetMapping("/get-by-name")
+    public ApiResponseData<SachResponse> getSachByName(@RequestParam String name) {
+        return new ApiResponseData<>(sachService.getSachByName(name));
     }
 
     @PutMapping("/{id}")
@@ -47,6 +52,7 @@ public class SachController {
         return new ApiResponseData<>("Cap nhat thanh cong");
     }
 
+    @DeleteMapping
     ApiResponseData<String> deleteSachById (Integer id){
         sachService.deleteSach(id);
         return new ApiResponseData<>("Xoa thanh cong");

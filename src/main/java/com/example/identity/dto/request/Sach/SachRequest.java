@@ -32,7 +32,6 @@ public class SachRequest {
 
     List<String> danhSachTheLoai;
 
-//    List<Integer> danhSachHinhAnh;
-
+    List<Integer> danhSachHinhAnh;
 
 }

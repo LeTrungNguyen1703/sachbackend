@@ -29,6 +29,12 @@ public class ServiceHelper {
         return sachRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.NOT_FOUND));
     }
+
+    public Sach getSachByTenSach(String name) {
+        return sachRepository.findByTenSach(name)
+                .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.NOT_FOUND));
+    }
+
     public User getUserById(Integer id) {
         return userRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(ErrorCode.NOT_FOUND));
