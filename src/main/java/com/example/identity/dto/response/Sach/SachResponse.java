@@ -17,6 +17,7 @@ import java.util.List;
 @FieldDefaults(level = lombok.AccessLevel.PRIVATE)
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class SachResponse {
+    private int maSach;
 
     private String tenSach;
 

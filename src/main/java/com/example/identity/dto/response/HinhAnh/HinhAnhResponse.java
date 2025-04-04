@@ -13,6 +13,7 @@ import lombok.experimental.FieldDefaults;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class HinhAnhResponse {
+    private int maHinhAnh;
 
     private String tenHinhAnh;
 

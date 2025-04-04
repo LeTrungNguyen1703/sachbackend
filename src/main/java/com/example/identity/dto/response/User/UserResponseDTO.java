@@ -15,6 +15,7 @@ import java.util.Set;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class UserResponseDTO {
 
+    private int maNguoiDung;
     String ten;
     String hoDem;
     String tenDangNhap;

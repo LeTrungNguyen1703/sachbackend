@@ -15,6 +15,6 @@ import java.util.List;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class TheLoaiResponse {
-
+    private int maTheLoai;
     private String tenTheLoai;
 }

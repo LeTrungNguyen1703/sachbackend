@@ -14,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 
 public class SuDanhGiaResponse {
+    private long maDanhGia;
 
     private Float diemXepHang;
 
