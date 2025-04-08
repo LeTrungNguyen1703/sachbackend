@@ -40,14 +40,15 @@ public class SachServiceImpl implements SachService {
     public SachResponse createSach(SachRequest request) {
         Sach sach = sachMapper.toSach(request);
 
-        var danhSachTheLoai = theLoaiRepository.findAllByTenTheLoaiIn((request.getDanhSachTheLoai()));
+        if (request.getDanhSachTheLoai() != null) {
+            var danhSachTheLoai = theLoaiRepository.findAllByTenTheLoaiIn((request.getDanhSachTheLoai()));
+            sach.setDanhSachTheLoai(danhSachTheLoai);
+        }
 
-        if (!request.getDanhSachHinhAnh().isEmpty()) {
+        if (request.getDanhSachHinhAnh() != null) {
             var danhSachAnh = hinhAnhRepository.findAllById(request.getDanhSachHinhAnh());
             sach.setDanhSachHinhAnh(danhSachAnh);
         }
-
-        sach.setDanhSachTheLoai(danhSachTheLoai);
 
         sachRepository.save(sach);
 
@@ -82,7 +83,7 @@ public class SachServiceImpl implements SachService {
     public SachResponse getSachById(Integer name) {
         Sach sach = serviceHelper.getSachById(name);
         SachResponse sachResponse = sachMapper.toSachResponse(sach);
-        return  sachMapper.toSachResponse(sach);
+        return sachMapper.toSachResponse(sach);
     }
 
 
