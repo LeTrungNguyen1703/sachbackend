@@ -52,8 +52,8 @@ public class SachController {
         return new ApiResponseData<>("Cap nhat thanh cong");
     }
 
-    @DeleteMapping
-    ApiResponseData<String> deleteSachById (Integer id){
+    @DeleteMapping("/{id}")
+    ApiResponseData<String> deleteSachById (@PathVariable Integer id){
         sachService.deleteSach(id);
         return new ApiResponseData<>("Xoa thanh cong");
     }

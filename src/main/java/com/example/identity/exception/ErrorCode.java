@@ -31,6 +31,7 @@ public enum ErrorCode {
     NOT_FOUND(1034, "KHONG TON TAI", HttpStatus.BAD_REQUEST),
     AUTHENTICATION_FAILED(1006, "Authentication failed", HttpStatus.UNAUTHORIZED),
     INVALID_DOB(1021, "Your age must be at least {min}", HttpStatus.BAD_REQUEST),
+    ALREADY_EXITS(1023, "Already exits", HttpStatus.BAD_REQUEST),
     MISSING_PARAMETER(1020,"Need Parameter for this request", HttpStatus.BAD_REQUEST);
     int code;
     String message;

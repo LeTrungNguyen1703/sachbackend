@@ -5,6 +5,7 @@ import com.example.identity.dto.response.PageResponse;
 import com.example.identity.dto.response.Sach.SachResponse;
 import com.example.identity.entity.Sach;
 import com.example.identity.exception.ErrorCode;
+import com.example.identity.exception.ResourceAlreadyExitsException;
 import com.example.identity.exception.ResourceNotFoundException;
 import com.example.identity.mapper.SachMapper;
 import com.example.identity.methodsPhoBien.ServiceHelper;
@@ -38,8 +39,10 @@ public class SachServiceImpl implements SachService {
 
     @Override
     public SachResponse createSach(SachRequest request) {
-        Sach sach = sachMapper.toSach(request);
+        String tenSach = serviceHelper.getSachByTenSach(request.getTenSach()).getTenSach() ;
+        if (tenSach.equalsIgnoreCase(request.getTenSach())) throw new ResourceAlreadyExitsException(ErrorCode.ALREADY_EXITS);
 
+        Sach sach = sachMapper.toSach(request);
         if (request.getDanhSachTheLoai() != null) {
             var danhSachTheLoai = theLoaiRepository.findAllByTenTheLoaiIn((request.getDanhSachTheLoai()));
             sach.setDanhSachTheLoai(danhSachTheLoai);
