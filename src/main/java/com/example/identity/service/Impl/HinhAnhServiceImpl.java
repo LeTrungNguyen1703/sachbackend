@@ -6,6 +6,7 @@ import com.example.identity.entity.Sach;
 import com.example.identity.mapper.HinhAnhMapper;
 import com.example.identity.methodsPhoBien.ServiceHelper;
 import com.example.identity.repository.HinhAnhRepository;
+import com.example.identity.repository.SachRepository;
 import com.example.identity.service.HinhAnhService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -26,6 +27,7 @@ public class HinhAnhServiceImpl implements HinhAnhService {
 
     HinhAnhMapper hinhAnhMapper;
     HinhAnhRepository hinhAnhRepository;
+    SachRepository sachRepository;
     ServiceHelper serviceHelper;
 
     @Override
@@ -34,7 +36,8 @@ public class HinhAnhServiceImpl implements HinhAnhService {
 
         String enCode = Base64.getEncoder().encodeToString(file.getBytes());
 
-        HinhAnh hinhAnh = new HinhAnh();
+        HinhAnh hinhAnh = this.updateIcon(sach);
+
         hinhAnh.setTenHinhAnh(file.getOriginalFilename());
         hinhAnh.setDuongDan(file.getContentType());
         hinhAnh.setDuLieuAnh(enCode);
@@ -83,4 +86,14 @@ public class HinhAnhServiceImpl implements HinhAnhService {
     public void delete(Integer id) {
         hinhAnhRepository.deleteById(id);
     }
+
+    private HinhAnh updateIcon(Sach sach) {
+        HinhAnh hinhAnh = new HinhAnh();
+
+        if (sach.getDanhSachHinhAnh() == null) {
+            hinhAnh.setLaIcon(true);
+        }
+        return hinhAnh;
+    }
+
 }

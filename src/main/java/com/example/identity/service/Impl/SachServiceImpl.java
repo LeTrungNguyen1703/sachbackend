@@ -39,8 +39,11 @@ public class SachServiceImpl implements SachService {
 
     @Override
     public SachResponse createSach(SachRequest request) {
-        String tenSach = serviceHelper.getSachByTenSach(request.getTenSach()).getTenSach() ;
-        if (tenSach.equalsIgnoreCase(request.getTenSach())) throw new ResourceAlreadyExitsException(ErrorCode.ALREADY_EXITS);
+        sachRepository.findByTenSach(request.getTenSach()).ifPresent(sach -> {
+            if (sach.getTenSach().equals(request.getTenSach())) {
+                throw new ResourceAlreadyExitsException(ErrorCode.ALREADY_EXITS);
+            }
+        });
 
         Sach sach = sachMapper.toSach(request);
         if (request.getDanhSachTheLoai() != null) {
@@ -85,7 +88,6 @@ public class SachServiceImpl implements SachService {
     @Override
     public SachResponse getSachById(Integer name) {
         Sach sach = serviceHelper.getSachById(name);
-        SachResponse sachResponse = sachMapper.toSachResponse(sach);
         return sachMapper.toSachResponse(sach);
     }
 
