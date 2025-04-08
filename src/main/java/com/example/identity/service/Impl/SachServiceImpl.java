@@ -3,6 +3,7 @@ package com.example.identity.service.Impl;
 import com.example.identity.dto.request.Sach.SachRequest;
 import com.example.identity.dto.response.PageResponse;
 import com.example.identity.dto.response.Sach.SachResponse;
+import com.example.identity.entity.HinhAnh;
 import com.example.identity.entity.Sach;
 import com.example.identity.exception.ErrorCode;
 import com.example.identity.exception.ResourceAlreadyExitsException;
@@ -128,5 +129,17 @@ public class SachServiceImpl implements SachService {
         });
         sachRepository.saveAll(sachToUpdate);
 
+    }
+
+    @Override
+    public void chooseIcon(int idImg, int idSach) {
+        Sach sach = serviceHelper.getSachById(idSach);
+        sach.getDanhSachHinhAnh().forEach(hinhAnh -> {
+            hinhAnh.setLaIcon(false);
+        });
+        HinhAnh hinhAnh = serviceHelper.getHinhAnhById(idImg);
+        hinhAnh.setLaIcon(true);
+
+        hinhAnhRepository.save(hinhAnh);
     }
 }

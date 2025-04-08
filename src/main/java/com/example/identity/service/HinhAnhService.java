@@ -13,4 +13,5 @@ public interface HinhAnhService {
     HinhAnhResponse getHinhAnhById(Integer id);
     void updateHinhAnh(Integer id, Integer idSach, MultipartFile file) throws IOException;
     void delete(Integer id);
+
 }

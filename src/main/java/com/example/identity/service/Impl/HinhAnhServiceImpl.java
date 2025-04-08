@@ -87,6 +87,7 @@ public class HinhAnhServiceImpl implements HinhAnhService {
         hinhAnhRepository.deleteById(id);
     }
 
+
     private HinhAnh updateIcon(Sach sach) {
         HinhAnh hinhAnh = new HinhAnh();
 

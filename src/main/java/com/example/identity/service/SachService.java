@@ -14,4 +14,6 @@ public interface SachService {
     void updateSach(int id,SachRequest request);
     void deleteSach(Integer Id);
     void avgDanhGia();
+    void chooseIcon(int idImg, int idSach);
+
 }

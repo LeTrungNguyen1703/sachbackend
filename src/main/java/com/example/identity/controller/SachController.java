@@ -20,7 +20,6 @@ import java.util.List;
 public class SachController {
 
     SachService sachService;
-
     @PostMapping
     public ApiResponseData<SachResponse> createSach(@RequestBody @Valid SachRequest request) {
 
@@ -62,6 +61,11 @@ public class SachController {
     public ApiResponseData<String> getAVGRating() {
         sachService.avgDanhGia();
         return new ApiResponseData<>("Cap nhat trung binh danh gia thanh cong");
+    }
+
+    @PatchMapping("/{idSach}")
+    public void chooseHinhAnhIcon(@PathVariable Integer idSach, @RequestParam Integer idImg) {
+        sachService.chooseIcon(idImg, idSach);
     }
 
 }
