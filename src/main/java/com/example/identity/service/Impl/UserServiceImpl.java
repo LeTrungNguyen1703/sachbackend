@@ -9,6 +9,7 @@ import com.example.identity.exception.ErrorCode;
 import com.example.identity.exception.ResourceAlreadyExitsException;
 import com.example.identity.exception.ResourceNotFoundException;
 import com.example.identity.mapper.UserMapper;
+import com.example.identity.methodsPhoBien.ServiceHelper;
 import com.example.identity.repository.RoleRepository;
 import com.example.identity.repository.UserRepository;
 import com.example.identity.service.UserService;
@@ -40,6 +41,7 @@ public class UserServiceImpl implements UserService {
     RoleRepository roleRepository;
     UserMapper userMapper;
     PasswordEncoder passwordEncoder;
+    private final ServiceHelper serviceHelper;
 
 
     @Override
@@ -68,15 +70,7 @@ public class UserServiceImpl implements UserService {
         log.info("User: {}", authentication.getName());
         authentication.getAuthorities().forEach(grantedAuthority -> log.info(grantedAuthority.getAuthority()));
 
-        Pageable pageable;
-        if (StringUtils.hasLength(sortBy)) {
-            String field = sortBy.split(":")[0];
-            String direction = sortBy.split(":")[1];
-            Sort.Order order = new Sort.Order(Sort.Direction.fromString(direction), field);
-            pageable = PageRequest.of(pageNo, pageSize, Sort.by(order));
-        } else {
-            pageable = PageRequest.of(pageNo, pageSize);
-        }
+        Pageable pageable = serviceHelper.getPageable(pageNo, pageSize, sortBy);
         Page<User> users = userRepository.findAll(pageable);
         List<UserResponseDTO> userResponseDTOS = users.stream()
                 .map(userMapper::toUserResponseDTO)
