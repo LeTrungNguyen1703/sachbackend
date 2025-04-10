@@ -144,8 +144,8 @@ public class SachServiceImpl implements SachService {
     }
 
     @Override
-    public PageResponse<List<SachResponse>> searchSach(String tenSach, int pageNo, int pageSize) {
-        Pageable pageable = serviceHelper.getPageable(pageNo, pageSize);
+    public PageResponse<List<SachResponse>> searchSach(String tenSach, int pageNo, int pageSize, String sortBy) {
+        Pageable pageable = serviceHelper.getPageable(pageNo, pageSize,sortBy);
 
         Page<Sach> sachs = sachRepository.findByTenSachContainingIgnoreCase(tenSach,pageable);
 

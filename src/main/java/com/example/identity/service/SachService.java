@@ -15,5 +15,5 @@ public interface SachService {
     void deleteSach(Integer Id);
     void avgDanhGia();
     void chooseIcon(int idImg, int idSach);
-    PageResponse<List<SachResponse>> searchSach(String tenSach, int pageNo, int pageSize);
+    PageResponse<List<SachResponse>> searchSach(String tenSach, int pageNo, int pageSize, String sortBy);
 }

@@ -72,9 +72,10 @@ public class SachController {
     @GetMapping("/search")
     public ApiResponseData<?> searchSach(@RequestParam String tenSach,
                                          @RequestParam(defaultValue = "0") Integer pageNo,
-                                         @RequestParam(defaultValue = "5") Integer pageSize) {
+                                         @RequestParam(defaultValue = "5") Integer pageSize,
+                                         @RequestParam(required = false) String sortBy) {
 
-        return new ApiResponseData<>(sachService.searchSach(tenSach, pageNo, pageSize));
+        return new ApiResponseData<>(sachService.searchSach(tenSach, pageNo, pageSize, sortBy));
     }
 
 }
