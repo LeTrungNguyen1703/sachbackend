@@ -99,12 +99,12 @@ public class SachServiceImpl implements SachService {
 
         sachMapper.updateSach(request, sach);
 
-        if (!request.getDanhSachTheLoai().isEmpty()) {
+        if (request.getDanhSachTheLoai() != null) {
             var danhSachTheLoai = theLoaiRepository.findAllByTenTheLoaiIn(request.getDanhSachTheLoai());
             sach.setDanhSachTheLoai(danhSachTheLoai);
         }
 
-        if (!request.getDanhSachHinhAnh().isEmpty()) {
+        if (request.getDanhSachHinhAnh() != null) {
             var danhSachHinhAnh = hinhAnhRepository.findAllById(request.getDanhSachHinhAnh());
             sach.setDanhSachHinhAnh(danhSachHinhAnh);
         }

@@ -28,13 +28,13 @@ public class Sach {
     private String moTa;
 
     @Column(name="gia_niem_yet")
-    private double giaNiemYet;
+    private Double giaNiemYet;
 
     @Column(name="gia_ban")
-    private double giaBan;
+    private Double giaBan;
 
     @Column(name="so_luong")
-    private int soLuong;
+    private Integer soLuong;
 
     @Column(name="trung_binh_xep_hang")
     private Double trungBinhXepHang;

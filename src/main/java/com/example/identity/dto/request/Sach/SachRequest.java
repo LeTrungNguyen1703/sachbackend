@@ -24,11 +24,11 @@ public class SachRequest {
 
     private String moTa;
 
-    private double giaNiemYet;
+    private Double giaNiemYet;
 
-    private double giaBan;
+    private Double giaBan;
 
-    private int soLuong;
+    private Integer soLuong;
 
     List<String> danhSachTheLoai;
 
