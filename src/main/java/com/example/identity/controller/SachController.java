@@ -20,6 +20,7 @@ import java.util.List;
 public class SachController {
 
     SachService sachService;
+
     @PostMapping
     public ApiResponseData<SachResponse> createSach(@RequestBody @Valid SachRequest request) {
 
@@ -46,13 +47,13 @@ public class SachController {
     }
 
     @PutMapping("/{id}")
-    ApiResponseData<String> updateSach(@PathVariable int id,@RequestBody SachRequest request) {
+    ApiResponseData<String> updateSach(@PathVariable int id, @RequestBody SachRequest request) {
         sachService.updateSach(id, request);
         return new ApiResponseData<>("Cap nhat thanh cong");
     }
 
     @DeleteMapping("/{id}")
-    ApiResponseData<String> deleteSachById (@PathVariable Integer id){
+    ApiResponseData<String> deleteSachById(@PathVariable Integer id) {
         sachService.deleteSach(id);
         return new ApiResponseData<>("Xoa thanh cong");
     }
@@ -66,6 +67,14 @@ public class SachController {
     @PatchMapping("/{idSach}")
     public void chooseHinhAnhIcon(@PathVariable Integer idSach, @RequestParam Integer idImg) {
         sachService.chooseIcon(idImg, idSach);
+    }
+
+    @GetMapping("/search")
+    public ApiResponseData<?> searchSach(@RequestParam String tenSach,
+                                         @RequestParam(defaultValue = "0") Integer pageNo,
+                                         @RequestParam(defaultValue = "5") Integer pageSize) {
+
+        return new ApiResponseData<>(sachService.searchSach(tenSach, pageNo, pageSize));
     }
 
 }

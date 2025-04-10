@@ -7,7 +7,6 @@ import com.example.identity.entity.HinhAnh;
 import com.example.identity.entity.Sach;
 import com.example.identity.exception.ErrorCode;
 import com.example.identity.exception.ResourceAlreadyExitsException;
-import com.example.identity.exception.ResourceNotFoundException;
 import com.example.identity.mapper.SachMapper;
 import com.example.identity.methodsPhoBien.ServiceHelper;
 import com.example.identity.repository.HinhAnhRepository;
@@ -67,6 +66,7 @@ public class SachServiceImpl implements SachService {
         Pageable pageable = serviceHelper.getPageable(pageNo, pageSize, sortBy);
 
         Page<Sach> sachs = sachRepository.findAll(pageable);
+
         var sachResponse = sachs.stream()
                 .map(sachMapper::toSachResponse)
                 .toList();
@@ -141,5 +141,21 @@ public class SachServiceImpl implements SachService {
         hinhAnh.setLaIcon(true);
 
         hinhAnhRepository.save(hinhAnh);
+    }
+
+    @Override
+    public PageResponse<List<SachResponse>> searchSach(String tenSach, int pageNo, int pageSize) {
+        Pageable pageable = serviceHelper.getPageable(pageNo, pageSize);
+
+        Page<Sach> sachs = sachRepository.findByTenSachContainingIgnoreCase(tenSach,pageable);
+
+        var sachResponse = sachs.map(sachMapper::toSachResponse).toList();
+
+        return PageResponse.<List<SachResponse>>builder()
+                .pageNo(pageNo)
+                .pageSize(pageSize)
+                .totalPages(sachs.getTotalPages())
+                .data(sachResponse)
+                .build();
     }
 }

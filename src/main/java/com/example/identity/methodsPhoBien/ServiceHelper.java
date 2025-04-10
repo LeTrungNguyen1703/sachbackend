@@ -61,5 +61,8 @@ public class ServiceHelper {
         }
         return pageable;
     }
+    public Pageable getPageable(int pageNo, int pageSize) {
+        return PageRequest.of(pageNo, pageSize);
+    }
 
 }
