@@ -16,4 +16,6 @@ public interface SachService {
     void avgDanhGia();
     void chooseIcon(int idImg, int idSach);
     PageResponse<List<SachResponse>> searchSach(String tenSach, int pageNo, int pageSize, String sortBy);
+
+    PageResponse<List<SachResponse>> searchSachByTenTheLoai(List<String> tenTheLoais, int pageNo, int pageSize, String sortBy);
 }

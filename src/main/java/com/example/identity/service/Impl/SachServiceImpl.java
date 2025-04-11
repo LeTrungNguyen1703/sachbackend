@@ -158,4 +158,21 @@ public class SachServiceImpl implements SachService {
                 .data(sachResponse)
                 .build();
     }
+
+    @Override
+    public PageResponse<List<SachResponse>> searchSachByTenTheLoai(List<String> tenTheLoais, int pageNo, int pageSize, String sortBy) {
+        Integer soLuongTenTheLoai = tenTheLoais.size();
+        Pageable pageable = serviceHelper.getPageable(pageNo, pageSize,sortBy);
+
+        Page<Sach> saches = sachRepository.findAllSachByTenTheLoai(tenTheLoais,soLuongTenTheLoai,pageable);
+
+        var sachResponse = saches.map(sachMapper::toSachResponse).toList();
+
+        return PageResponse.<List<SachResponse>>builder()
+                .pageNo(pageNo)
+                .pageSize(pageSize)
+                .totalPages(saches.getTotalPages())
+                .data(sachResponse)
+                .build();
+    }
 }
