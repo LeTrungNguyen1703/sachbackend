@@ -79,12 +79,15 @@ public class SachController {
     }
 
     @GetMapping("/search-by-ten-the-loai")
-    public ApiResponseData<?> searchSachByTenTheLoai(@RequestParam List<String> tenTheLoais,
+    public ApiResponseData<?> searchSachByTenTheLoai(@RequestParam(required = false, defaultValue = "") List<String> tenTheLoais,
                                                      @RequestParam(defaultValue = "0") Integer pageNo,
                                                      @RequestParam(defaultValue = "5") Integer pageSize,
                                                      @RequestParam(required = false) String sortBy) {
+        if (tenTheLoais != null || !tenTheLoais.isEmpty()) {
+            return new ApiResponseData<>(sachService.searchSachByTenTheLoai(tenTheLoais, pageNo, pageSize, sortBy));
+        }
 
-        return new ApiResponseData<>(sachService.searchSachByTenTheLoai(tenTheLoais, pageNo, pageSize, sortBy));
+        return new ApiResponseData<>(List.of(""));
     }
 
 }
