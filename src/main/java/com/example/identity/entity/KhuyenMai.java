@@ -2,12 +2,14 @@ package com.example.identity.entity;
 
 import com.example.identity.entity.ChiPhiGiaoHang;
 import jakarta.persistence.*;
+import lombok.Data;
 
 import java.util.Date;
 import java.util.List;
 
 @Entity
 @Table(name = "khuyen_mai")
+@Data
 public class KhuyenMai {
 
     @Id
@@ -33,5 +35,4 @@ public class KhuyenMai {
     @OneToMany(mappedBy = "khuyenMai", cascade = CascadeType.ALL)
     private List<ChiPhiGiaoHang> danhSachChiPhiGiaoHang;
 
-    // Constructor, getter, setter
 }
